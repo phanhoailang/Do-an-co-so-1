@@ -29,13 +29,13 @@ public class Signup extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jDayChooser1 = new com.toedter.calendar.JDayChooser();
         jPanel_Signup = new javax.swing.JPanel();
         jLabel_FullName = new javax.swing.JLabel();
         jTextField_PhoneNumber = new javax.swing.JTextField();
         jLabel_Password = new javax.swing.JLabel();
         jTextField_Password = new javax.swing.JTextField();
         jLabel_DateOfBirth = new javax.swing.JLabel();
-        jTextField_DateOfBirth = new javax.swing.JTextField();
         jLabel_Gender = new javax.swing.JLabel();
         jRadioButton_Male = new javax.swing.JRadioButton();
         jRadioButton_Female = new javax.swing.JRadioButton();
@@ -45,6 +45,7 @@ public class Signup extends javax.swing.JDialog {
         jButton_BackLogin = new javax.swing.JButton();
         jLabel_Female = new javax.swing.JLabel();
         jLabel_Male = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -113,6 +114,8 @@ public class Signup extends javax.swing.JDialog {
         jLabel_Male.setIcon(new javax.swing.ImageIcon("D:\\Quan li quay ban ve xem phim\\Code\\quanlivexemphim\\src\\Image\\male_icon_16.png")); // NOI18N
         jLabel_Male.setText("Nam");
 
+        jDateChooser2.setDateFormatString("dd-MM-yyyy");
+
         javax.swing.GroupLayout jPanel_SignupLayout = new javax.swing.GroupLayout(jPanel_Signup);
         jPanel_Signup.setLayout(jPanel_SignupLayout);
         jPanel_SignupLayout.setHorizontalGroup(
@@ -122,23 +125,19 @@ public class Signup extends javax.swing.JDialog {
                 .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_Password, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField_FullName)
-                    .addComponent(jTextField_DateOfBirth, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField_PhoneNumber)
                     .addGroup(jPanel_SignupLayout.createSequentialGroup()
-                        .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_Password)
-                            .addComponent(jLabel_DateOfBirth))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel_SignupLayout.createSequentialGroup()
                         .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton_BackLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel_SignupLayout.createSequentialGroup()
-                                    .addComponent(jLabel_Gender)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(jRadioButton_Male))
-                                .addComponent(jLabel_PhoneNumber)
-                                .addComponent(jLabel_FullName)))
+                            .addGroup(jPanel_SignupLayout.createSequentialGroup()
+                                .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_PhoneNumber)
+                                    .addComponent(jLabel_FullName))
+                                .addGap(29, 29, 29))
+                            .addGroup(jPanel_SignupLayout.createSequentialGroup()
+                                .addComponent(jLabel_Gender)
+                                .addGap(37, 37, 37)
+                                .addComponent(jRadioButton_Male))
+                            .addComponent(jButton_BackLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton_SignUp, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -148,7 +147,13 @@ public class Signup extends javax.swing.JDialog {
                                 .addComponent(jRadioButton_Female)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel_Female)
-                                .addGap(25, 25, 25)))))
+                                .addGap(25, 25, 25))))
+                    .addGroup(jPanel_SignupLayout.createSequentialGroup()
+                        .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_Password)
+                            .addComponent(jLabel_DateOfBirth)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel_SignupLayout.setVerticalGroup(
@@ -164,27 +169,27 @@ public class Signup extends javax.swing.JDialog {
                 .addComponent(jTextField_PhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_Password)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_DateOfBirth)
+                .addComponent(jTextField_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_DateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addComponent(jLabel_DateOfBirth)
+                .addGap(2, 2, 2)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_SignupLayout.createSequentialGroup()
                         .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel_Gender)
+                            .addComponent(jRadioButton_Female)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jRadioButton_Male)
-                                .addComponent(jRadioButton_Female))
-                            .addComponent(jLabel_Male))
+                                .addComponent(jLabel_Male))
+                            .addComponent(jLabel_Gender))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton_BackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(jButton_SignUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton_SignUp, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(jButton_BackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel_Female))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         getContentPane().add(jPanel_Signup);
@@ -263,6 +268,8 @@ public class Signup extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton_BackLogin;
     private javax.swing.JButton jButton_SignUp;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDayChooser jDayChooser1;
     private javax.swing.JLabel jLabel_DateOfBirth;
     private javax.swing.JLabel jLabel_Female;
     private javax.swing.JLabel jLabel_FullName;
@@ -273,7 +280,6 @@ public class Signup extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel_Signup;
     private javax.swing.JRadioButton jRadioButton_Female;
     private javax.swing.JRadioButton jRadioButton_Male;
-    private javax.swing.JTextField jTextField_DateOfBirth;
     private javax.swing.JTextField jTextField_FullName;
     private javax.swing.JTextField jTextField_Password;
     private javax.swing.JTextField jTextField_PhoneNumber;
