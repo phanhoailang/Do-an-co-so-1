@@ -4,6 +4,10 @@
  */
 package App.View;
 
+import App.Dao.UserDao;
+import App.Helpers.Datavalidator;
+import App.Helpers.MessageDialog;
+import App.Model.User;
 import App.View.Signup;
 import javax.swing.JDialog;
 
@@ -15,11 +19,13 @@ public class Login extends javax.swing.JDialog {
     /**
      * Creates new form Login
      */
+    public User user;
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,7 +39,7 @@ public class Login extends javax.swing.JDialog {
         jPanel_Login = new javax.swing.JPanel();
         jLabel_User = new javax.swing.JLabel();
         jLabel_Password = new javax.swing.JLabel();
-        jTextFiedld_User = new javax.swing.JTextField();
+        jTextField_User = new javax.swing.JTextField();
         jButton_Login = new javax.swing.JButton();
         jPasswordField_Password = new javax.swing.JPasswordField();
         jButton_Signup = new javax.swing.JButton();
@@ -54,9 +60,9 @@ public class Login extends javax.swing.JDialog {
         jLabel_Password.setIcon(new javax.swing.ImageIcon("D:\\Quan li quay ban ve xem phim\\Code\\quanlivexemphim\\src\\Image\\password_icon_16.png")); // NOI18N
         jLabel_Password.setText("Password");
 
-        jTextFiedld_User.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_User.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFiedld_UserActionPerformed(evt);
+                jTextField_UserActionPerformed(evt);
             }
         });
 
@@ -99,7 +105,7 @@ public class Login extends javax.swing.JDialog {
                             .addComponent(jButton_Signup))
                         .addComponent(jLabel_Password)
                         .addComponent(jLabel_User)
-                        .addComponent(jTextFiedld_User, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                        .addComponent(jTextField_User, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                         .addComponent(jPasswordField_Password)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -111,7 +117,7 @@ public class Login extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_User)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFiedld_User, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_User, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -151,14 +157,37 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFiedld_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiedld_UserActionPerformed
+    private void jTextField_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_UserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFiedld_UserActionPerformed
+    }//GEN-LAST:event_jTextField_UserActionPerformed
 
     private void jButton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoginActionPerformed
-        // TODO add your handling code here:
+        StringBuffer sb = new StringBuffer();
+        Datavalidator.validateEmpty(jTextField_User,sb,"Tên đăng nhập không được để trống");
+        Datavalidator.validateEmpty(jPasswordField_Password,sb,"Mật khẩu không được để trống");
+        if(sb.length() > 0){
+            MessageDialog.showErrorDialog(this, sb.toString(), "Lỗi");
+            return ;
+        }
+        UserDao dao = new UserDao();
+         
+        try{
+            this.user = dao.checkLogin(jTextField_User.getText(), new String(jPasswordField_Password.getPassword()));
+            if(this.user == null){
+                MessageDialog.showErrorDialog(this, "Tên đăng nhập hoặc mật khẩu sai", "Lỗi");
+            }
+            else {
+                this.dispose();
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+            MessageDialog.showErrorDialog(this, e.getMessage(), "Lỗi");
+        }
+       
     }//GEN-LAST:event_jButton_LoginActionPerformed
-
+    public User getUser(){
+        return this.user;
+    }
     private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton_ExitActionPerformed
@@ -221,6 +250,6 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel_User;
     private javax.swing.JPanel jPanel_Login;
     private javax.swing.JPasswordField jPasswordField_Password;
-    private javax.swing.JTextField jTextFiedld_User;
+    private javax.swing.JTextField jTextField_User;
     // End of variables declaration//GEN-END:variables
 }

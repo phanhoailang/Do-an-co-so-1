@@ -78,7 +78,7 @@
                           </Group>
                           <Component id="jLabel_Password" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel_User" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFiedld_User" alignment="0" pref="224" max="32767" attributes="0"/>
+                          <Component id="jTextField_User" alignment="0" pref="224" max="32767" attributes="0"/>
                           <Component id="jPasswordField_Password" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -94,7 +94,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel_User" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jTextFiedld_User" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jTextField_User" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel_Password" min="-2" pref="16" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -132,9 +132,9 @@
             <Property name="text" type="java.lang.String" value="Password"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFiedld_User">
+        <Component class="javax.swing.JTextField" name="jTextField_User">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFiedld_UserActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_UserActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton_Login">
