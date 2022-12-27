@@ -4,6 +4,13 @@
  */
 package App.View;
 
+import App.Dao.UserDao;
+import App.Helpers.MessageDialog;
+import App.Model.User;
+import java.util.Calendar;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+
 /**
  *
  * @author win10
@@ -43,9 +50,7 @@ public class Signup extends javax.swing.JDialog {
         jTextField_FullName = new javax.swing.JTextField();
         jButton_SignUp = new javax.swing.JButton();
         jButton_BackLogin = new javax.swing.JButton();
-        jLabel_Female = new javax.swing.JLabel();
-        jLabel_Male = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jDateChooser_DateOfBirth = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -69,6 +74,7 @@ public class Signup extends javax.swing.JDialog {
         jLabel_Gender.setText("Giới Tính");
 
         buttonGroup1.add(jRadioButton_Male);
+        jRadioButton_Male.setText("Nam");
         jRadioButton_Male.setAlignmentX(2.0F);
         jRadioButton_Male.setAlignmentY(2.0F);
         jRadioButton_Male.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +84,7 @@ public class Signup extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton_Female);
+        jRadioButton_Female.setText("Nữ");
         jRadioButton_Female.setAlignmentX(2.0F);
         jRadioButton_Female.setAlignmentY(2.0F);
         jRadioButton_Female.addActionListener(new java.awt.event.ActionListener() {
@@ -108,13 +115,8 @@ public class Signup extends javax.swing.JDialog {
             }
         });
 
-        jLabel_Female.setIcon(new javax.swing.ImageIcon("D:\\Quan li quay ban ve xem phim\\Code\\quanlivexemphim\\src\\Image\\female_icon_16.png")); // NOI18N
-        jLabel_Female.setText("Nữ");
-
-        jLabel_Male.setIcon(new javax.swing.ImageIcon("D:\\Quan li quay ban ve xem phim\\Code\\quanlivexemphim\\src\\Image\\male_icon_16.png")); // NOI18N
-        jLabel_Male.setText("Nam");
-
-        jDateChooser2.setDateFormatString("dd-MM-yyyy");
+        jDateChooser_DateOfBirth.setDateFormatString("yyyy-MM-dd");
+        jDateChooser_DateOfBirth.setMinSelectableDate(new java.util.Date(-62135791131000L));
 
         javax.swing.GroupLayout jPanel_SignupLayout = new javax.swing.GroupLayout(jPanel_Signup);
         jPanel_Signup.setLayout(jPanel_SignupLayout);
@@ -123,36 +125,29 @@ public class Signup extends javax.swing.JDialog {
             .addGroup(jPanel_SignupLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_Password, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField_FullName)
-                    .addComponent(jTextField_PhoneNumber)
                     .addGroup(jPanel_SignupLayout.createSequentialGroup()
                         .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel_SignupLayout.createSequentialGroup()
-                                .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel_PhoneNumber)
-                                    .addComponent(jLabel_FullName))
-                                .addGap(29, 29, 29))
                             .addGroup(jPanel_SignupLayout.createSequentialGroup()
                                 .addComponent(jLabel_Gender)
                                 .addGap(37, 37, 37)
                                 .addComponent(jRadioButton_Male))
                             .addComponent(jButton_BackLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                         .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton_SignUp, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SignupLayout.createSequentialGroup()
-                                .addComponent(jLabel_Male)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                                 .addComponent(jRadioButton_Female)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel_Female)
-                                .addGap(25, 25, 25))))
+                                .addGap(67, 67, 67))))
                     .addGroup(jPanel_SignupLayout.createSequentialGroup()
-                        .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_Password)
-                            .addComponent(jLabel_DateOfBirth)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField_Password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                            .addComponent(jTextField_PhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_FullName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_PhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_Password, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_DateOfBirth, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooser_DateOfBirth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_FullName, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -174,21 +169,16 @@ public class Signup extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_DateOfBirth)
                 .addGap(2, 2, 2)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooser_DateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_SignupLayout.createSequentialGroup()
-                        .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton_Female)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton_Male)
-                                .addComponent(jLabel_Male))
-                            .addComponent(jLabel_Gender))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton_SignUp, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(jButton_BackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel_Female))
+                    .addComponent(jRadioButton_Female)
+                    .addComponent(jRadioButton_Male, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel_Gender))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel_SignupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton_SignUp, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jButton_BackLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
 
@@ -210,7 +200,27 @@ public class Signup extends javax.swing.JDialog {
     }//GEN-LAST:event_jRadioButton_FemaleActionPerformed
 
     private void jButton_SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SignUpActionPerformed
-        
+         UserDao dao = new UserDao();
+         String genDer = "";
+         Enumeration<AbstractButton> btn = buttonGroup1.getElements();
+         while(btn.hasMoreElements()){
+             AbstractButton b = btn.nextElement();
+             if(b.isSelected()) genDer = b.getText();
+         }
+         try{
+             User user = new User();
+             user = dao.checkSignUp(jTextField_PhoneNumber.getText());
+             if(user != null){
+                 MessageDialog.showErrorDialog(this, "Tài khoản đã được đăng ký", "Đăng ký lại");
+             }
+             else{
+                 dao.Singup(jTextField_PhoneNumber.getText(), jTextField_FullName.getText(), jTextField_Password.getText(), jDateChooser_DateOfBirth.getDate() + "", genDer);
+                 MessageDialog.showMessageDialog(this, "Đăng ký thành công", "Hoàn thành");
+             }
+         } catch(Exception e){
+            e.printStackTrace();
+            MessageDialog.showErrorDialog(this, e.getMessage(), "Lỗi");
+        }
     }//GEN-LAST:event_jButton_SignUpActionPerformed
 
     private void jButton_BackLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BackLoginActionPerformed
@@ -268,13 +278,11 @@ public class Signup extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton_BackLogin;
     private javax.swing.JButton jButton_SignUp;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDateChooser_DateOfBirth;
     private com.toedter.calendar.JDayChooser jDayChooser1;
     private javax.swing.JLabel jLabel_DateOfBirth;
-    private javax.swing.JLabel jLabel_Female;
     private javax.swing.JLabel jLabel_FullName;
     private javax.swing.JLabel jLabel_Gender;
-    private javax.swing.JLabel jLabel_Male;
     private javax.swing.JLabel jLabel_Password;
     private javax.swing.JLabel jLabel_PhoneNumber;
     private javax.swing.JPanel jPanel_Signup;

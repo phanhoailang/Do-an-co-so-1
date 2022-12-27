@@ -10,6 +10,7 @@ import App.Helpers.MessageDialog;
 import App.Model.User;
 import App.View.Signup;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Login extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
+        
     }
 
 
