@@ -4,6 +4,15 @@
  */
 package App.View;
 
+import App.Helpers.MessageDialog;
+import App.Model.Ticket_model;
+import java.awt.Button;
+import java.awt.Color;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+import javax.swing.JButton;
+
 /**
  *
  * @author win10
@@ -13,10 +22,87 @@ public class Ticket extends javax.swing.JDialog {
     /**
      * Creates new form Ticket
      */
+    private double s = 0;
+    ArrayList<Ticket_model> list = new ArrayList<>();
+
     public Ticket(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
+    }
+
+    public void setList(ArrayList<Ticket_model> list) {
+        this.list = list;
+    }
+
+    public void setYellow(JButton btn) {
+        btn.setBackground(Color.YELLOW);
+    }
+
+    public void setWhite(JButton btn) {
+        btn.setBackground(Color.WHITE);
+    }
+
+    public void setColor() {
+        int i = 1;
+        for (Ticket_model t : list) {
+            if (i == 1) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_A1.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_A1.setBackground(Color.red);
+                }
+            } else if (i == 2) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_A2.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_A2.setBackground(Color.red);
+                }
+            } else if (i == 3) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_A3.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_A3.setBackground(Color.red);
+                }
+            } else if (i == 4) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_B1.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_B1.setBackground(Color.red);
+                }
+            } else if (i == 5) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_B2.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_B2.setBackground(Color.red);
+                }
+            } else if (i == 6) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_B3.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_B3.setBackground(Color.red);
+                }
+            } else if (i == 7) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_C1.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_C1.setBackground(Color.red);
+                }
+            } else if (i == 8) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_C2.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_C2.setBackground(Color.red);
+                }
+            } else if (i == 9) {
+                if (t.isStatusTicket() == 1) {
+                    jButton_C3.setBackground(Color.WHITE);
+                } else if (t.isStatusTicket() == 3) {
+                    jButton_C3.setBackground(Color.red);
+                }
+            }
+            i++;
+        }
     }
 
     /**
@@ -32,20 +118,20 @@ public class Ticket extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jButton_A1 = new javax.swing.JButton();
+        jButton_A2 = new javax.swing.JButton();
+        jButton_A3 = new javax.swing.JButton();
+        jButton_B1 = new javax.swing.JButton();
+        jButton_B2 = new javax.swing.JButton();
+        jButton_B3 = new javax.swing.JButton();
+        jButton_C1 = new javax.swing.JButton();
+        jButton_C2 = new javax.swing.JButton();
+        jButton_C3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel_Sum = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -88,23 +174,68 @@ public class Ticket extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jButton1.setText("jButton1");
+        jButton_A1.setText("A1");
+        jButton_A1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_A1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jButton_A2.setText("A2");
+        jButton_A2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_A2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        jButton_A3.setText("A3");
+        jButton_A3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_A3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        jButton_B1.setText("B1");
+        jButton_B1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_B1ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton5");
+        jButton_B2.setText("B2");
+        jButton_B2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_B2ActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("jButton6");
+        jButton_B3.setText("B3");
+        jButton_B3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_B3ActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("jButton7");
+        jButton_C1.setText("C1");
+        jButton_C1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_C1ActionPerformed(evt);
+            }
+        });
 
-        jButton8.setText("jButton8");
+        jButton_C2.setText("C2");
+        jButton_C2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_C2ActionPerformed(evt);
+            }
+        });
 
-        jButton9.setText("jButton9");
+        jButton_C3.setText("C3");
+        jButton_C3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_C3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -113,19 +244,19 @@ public class Ticket extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4)
-                    .addComponent(jButton7))
+                    .addComponent(jButton_A1)
+                    .addComponent(jButton_B1)
+                    .addComponent(jButton_C1))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton8)
-                    .addComponent(jButton5)
-                    .addComponent(jButton2))
+                    .addComponent(jButton_C2)
+                    .addComponent(jButton_B2)
+                    .addComponent(jButton_A2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton6)
-                    .addComponent(jButton9))
+                    .addComponent(jButton_A3)
+                    .addComponent(jButton_B3)
+                    .addComponent(jButton_C3))
                 .addGap(16, 16, 16))
         );
         jPanel2Layout.setVerticalGroup(
@@ -133,19 +264,19 @@ public class Ticket extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(jButton_A2)
+                    .addComponent(jButton_A1)
+                    .addComponent(jButton_A3))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton4))
+                    .addComponent(jButton_B2)
+                    .addComponent(jButton_B3)
+                    .addComponent(jButton_B1))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton7)
-                    .addComponent(jButton9))
+                    .addComponent(jButton_C2)
+                    .addComponent(jButton_C1)
+                    .addComponent(jButton_C3))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -167,7 +298,7 @@ public class Ticket extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel_Sum.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -182,7 +313,7 @@ public class Ticket extends javax.swing.JDialog {
                         .addComponent(jButton10)
                         .addGap(42, 42, 42)
                         .addComponent(jButton11))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel_Sum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -191,7 +322,7 @@ public class Ticket extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_Sum, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton10)
@@ -248,7 +379,7 @@ public class Ticket extends javax.swing.JDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +411,7 @@ public class Ticket extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -305,6 +436,150 @@ public class Ticket extends javax.swing.JDialog {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton_C1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C1ActionPerformed
+        if (jButton_C1.getBackground() == Color.WHITE) {
+            setYellow(jButton_C1);
+            this.s += list.get(6).getPrice();
+            this.list.get(6).setStatusTicket(2);
+        } else if (jButton_C1.getBackground() == Color.YELLOW) {
+            setWhite(jButton_C1);
+            this.s -= list.get(6).getPrice();
+            this.list.get(6).setStatusTicket(1);
+        } else if (jButton_C1.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_C1ActionPerformed
+
+    private void jButton_A1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_A1ActionPerformed
+        if (jButton_A1.getBackground() == Color.WHITE) {
+            setYellow(jButton_A1);
+            this.s += list.get(0).getPrice();
+            this.list.get(0).setStatusTicket(2);
+        } else if (jButton_A1.getBackground() == Color.YELLOW) {
+            setWhite(jButton_A1);
+            this.s -= list.get(0).getPrice();
+            this.list.get(0).setStatusTicket(1);
+        } else if (jButton_A1.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_A1ActionPerformed
+
+    private void jButton_A2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_A2ActionPerformed
+        if (jButton_A2.getBackground() == Color.WHITE) {
+            setYellow(jButton_A2);
+            this.s += list.get(1).getPrice();
+            this.list.get(1).setStatusTicket(2);
+        } else if (jButton_A2.getBackground() == Color.YELLOW) {
+            setWhite(jButton_A2);
+            this.s -= list.get(1).getPrice();
+            this.list.get(1).setStatusTicket(1);
+        } else if (jButton_A2.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_A2ActionPerformed
+
+    private void jButton_A3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_A3ActionPerformed
+        if (jButton_A3.getBackground() == Color.WHITE) {
+            setYellow(jButton_A3);
+            this.s += list.get(2).getPrice();
+            this.list.get(2).setStatusTicket(2);
+        } else if (jButton_A3.getBackground() == Color.YELLOW) {
+            setWhite(jButton_A3);
+            this.s -= list.get(2).getPrice();
+            this.list.get(2).setStatusTicket(1);
+        } else if (jButton_A3.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_A3ActionPerformed
+
+    private void jButton_B2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_B2ActionPerformed
+        if (jButton_B2.getBackground() == Color.WHITE) {
+            setYellow(jButton_B2);
+            this.s += list.get(4).getPrice();
+            this.list.get(4).setStatusTicket(2);
+        } else if (jButton_B2.getBackground() == Color.YELLOW) {
+            setWhite(jButton_B2);
+             this.s -= list.get(4).getPrice();
+            this.list.get(4).setStatusTicket(1);
+        } else if (jButton_B2.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_B2ActionPerformed
+
+    private void jButton_B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_B1ActionPerformed
+        if (jButton_B1.getBackground() == Color.WHITE) {
+            setYellow(jButton_B1);
+            this.s += list.get(3).getPrice();
+            this.list.get(3).setStatusTicket(2);
+        } else if (jButton_B1.getBackground() == Color.YELLOW) {
+            setWhite(jButton_B1);
+            this.s -= list.get(3).getPrice();
+            this.list.get(3).setStatusTicket(1);
+        } else if (jButton_A1.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_B1ActionPerformed
+
+    private void jButton_B3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_B3ActionPerformed
+        if (jButton_B3.getBackground() == Color.WHITE) {
+            setYellow(jButton_B3);
+            this.s += list.get(5).getPrice();
+            this.list.get(5).setStatusTicket(2);
+        } else if (jButton_B3.getBackground() == Color.YELLOW) {
+            setWhite(jButton_B3);
+            this.s -= list.get(5).getPrice();
+            this.list.get(5).setStatusTicket(1);
+        } else if (jButton_B3.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "đ");
+    }//GEN-LAST:event_jButton_B3ActionPerformed
+
+    private void jButton_C2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C2ActionPerformed
+        if (jButton_C2.getBackground() == Color.WHITE) {
+            setYellow(jButton_C2);
+            this.s += list.get(7).getPrice();
+            this.list.get(7).setStatusTicket(2);
+        } else if (jButton_C2.getBackground() == Color.YELLOW) {
+            setWhite(jButton_C2);
+            this.s -= list.get(7).getPrice();
+            this.list.get(7).setStatusTicket(1);
+        } else if (jButton_C2.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s+"đ");
+    }//GEN-LAST:event_jButton_C2ActionPerformed
+
+    private void jButton_C3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C3ActionPerformed
+        if (jButton_C3.getBackground() == Color.WHITE) {
+            setYellow(jButton_C3);
+            this.s += list.get(8).getPrice();
+            this.list.get(8).setStatusTicket(2);
+        } else if (jButton_C3.getBackground() == Color.YELLOW) {
+            setWhite(jButton_C3);
+            this.s -= list.get(8).getPrice();
+            this.list.get(8).setStatusTicket(1);
+        } else if (jButton_C3.getBackground() == Color.RED) {
+            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+        }
+        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
+        this.jLabel_Sum.setText(s + "");
+    }//GEN-LAST:event_jButton_C3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,23 +624,23 @@ public class Ticket extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton_A1;
+    private javax.swing.JButton jButton_A2;
+    private javax.swing.JButton jButton_A3;
+    private javax.swing.JButton jButton_B1;
+    private javax.swing.JButton jButton_B2;
+    private javax.swing.JButton jButton_B3;
+    private javax.swing.JButton jButton_C1;
+    private javax.swing.JButton jButton_C2;
+    private javax.swing.JButton jButton_C3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel_Sum;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

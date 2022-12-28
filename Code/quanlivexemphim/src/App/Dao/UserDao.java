@@ -68,4 +68,13 @@ public class UserDao {
             
         }
     }
+    
+    public void Delete(String phoneNumber) throws Exception{
+        String sql = "DELETE FROM KHACHHANG " 
+                + " WHERE PhoneNumber = ?";
+        try( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, phoneNumber);
+            pstmt.execute();
+        }
+    }
 }

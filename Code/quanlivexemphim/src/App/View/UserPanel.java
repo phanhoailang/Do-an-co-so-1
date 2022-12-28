@@ -4,8 +4,13 @@
  */
 package App.View;
 
+import App.Dao.UserDao;
+import App.Helpers.MessageDialog;
 import App.Model.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +28,8 @@ public class UserPanel extends javax.swing.JPanel {
         this.jLabel_FullName.setText(user.getFullName());
         this.jLabel_PhoneNumber.setText(user.getPhoneNumber());
         this.jLabel_genDer.setText(user.getGenDer());
-        this.jLabel_passWord.setText(user.getPassWord());
+        String res ="******";
+        this.jLabel_passWord.setText(res);
         this.jLabel_dateOfBirth.setText(user.getDateOfBirth());
     }
     /**
@@ -41,7 +47,7 @@ public class UserPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton_Delete = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -91,8 +97,13 @@ public class UserPanel extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Cập nhật");
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton3.setText("Xóa");
+        jButton_Delete.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton_Delete.setText("Xóa");
+        jButton_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DeleteActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Họ và Tên: ");
@@ -178,7 +189,7 @@ public class UserPanel extends javax.swing.JPanel {
                                 .addGap(133, 133, 133)
                                 .addComponent(jButton2)
                                 .addGap(81, 81, 81)
-                                .addComponent(jButton3))
+                                .addComponent(jButton_Delete))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(256, 256, 256)
                                 .addComponent(jLabel1)))
@@ -222,7 +233,7 @@ public class UserPanel extends javax.swing.JPanel {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(jButton_Delete)
                     .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -232,11 +243,22 @@ public class UserPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel_FullNameAncestorAdded
 
+    private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
+        UserDao Dao = new UserDao();
+        try {
+            if(MessageDialog.showConfirmialog(jPanel1, "Bạn có muốn xóa sinh viên không ?", "Hỏi") == JOptionPane.NO_OPTION) return;
+            Dao.Delete(jLabel_PhoneNumber.getText());
+            MessageDialog.showMessageDialog(jPanel1, "Tài khoản được xóa thành công", "Thông báo");
+        } catch (Exception ex) {
+            Logger.getLogger(UserPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_DeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_Delete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -5,6 +5,7 @@
 package App.View;
 
 import App.Dao.UserDao;
+import App.Helpers.Datavalidator;
 import App.Helpers.MessageDialog;
 import App.Model.User;
 import java.util.Calendar;
@@ -200,7 +201,8 @@ public class Signup extends javax.swing.JDialog {
     }//GEN-LAST:event_jRadioButton_FemaleActionPerformed
 
     private void jButton_SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SignUpActionPerformed
-         UserDao dao = new UserDao();
+        StringBuffer sb = new StringBuffer();
+        UserDao dao = new UserDao();
          String genDer = "";
          Enumeration<AbstractButton> btn = buttonGroup1.getElements();
          while(btn.hasMoreElements()){

@@ -4,6 +4,14 @@
  */
 package App.View;
 
+import App.Dao.FilmDao;
+import App.Dao.TicketDao;
+import App.Helpers.MessageDialog;
+import App.Model.Film;
+import App.Model.Ticket_model;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 
 /**
@@ -28,19 +36,11 @@ public class BuyTicketPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         jButton_Buyticket = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-
-        jList1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable_Film = new javax.swing.JTable();
 
         jButton_Buyticket.setBackground(new java.awt.Color(255, 51, 51));
         jButton_Buyticket.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -61,30 +61,41 @@ public class BuyTicketPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28))
+                .addGap(0, 0, 0))
         );
+
+        jTable_Film.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable_Film.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Avartar 2", "avt2"}
+            },
+            new String [] {
+                "Tên Phim", "Mã Phim"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable_Film);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_Buyticket, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_Buyticket, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,15 +103,32 @@ public class BuyTicketPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton_Buyticket, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton_Buyticket, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_BuyticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BuyticketActionPerformed
         Ticket TicketDialog = new Ticket(null, true);
-        
+        FilmDao filmDao = new FilmDao();
+        TicketDao ticketDao = new TicketDao();
+        int row = jTable_Film.getSelectedRow();
+        if(row >= 0){
+            try {
+                Film film = filmDao.check(jTable_Film.getValueAt(row, 0).toString(), jTable_Film.getValueAt(row, 1).toString());
+                ArrayList<Ticket_model> list = ticketDao.list(film.getIdFilm());
+                TicketDialog.setList(list);
+                TicketDialog.setColor();
+            } catch (Exception ex) {
+                Logger.getLogger(BuyTicketPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            MessageDialog.showMessageDialog(jPanel1, "Vui lòng chọn phim", "Thông báo");
+            return ;
+        }
         TicketDialog.setVisible(true);
     }//GEN-LAST:event_jButton_BuyticketActionPerformed
 
@@ -108,8 +136,8 @@ public class BuyTicketPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Buyticket;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable_Film;
     // End of variables declaration//GEN-END:variables
 }
