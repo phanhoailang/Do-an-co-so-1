@@ -3,16 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/MainForm.java</file>
-            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Dao/UserDao.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Model/Ticket_model.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/HistoryPanel.java</file>
             <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/Login.java</file>
             <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/UserPanel.java</file>
             <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/Signup.java</file>
             <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Model/User.java</file>
-            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Helpers/ToStringDate.java</file>
-            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Helpers/Datavalidator.java</file>
-            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/Ticket.java</file>
             <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Helpers/DatabaseConnection.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Model/Film.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/MainForm.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Dao/UserDao.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Dao/FilmDao.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/Ticket.java</file>
+            <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/Dao/TicketDao.java</file>
             <file>file:/D:/Quan%20li%20quay%20ban%20ve%20xem%20phim/Code/quanlivexemphim/src/App/View/BuyTicketPanel.java</file>
         </group>
     </open-files>

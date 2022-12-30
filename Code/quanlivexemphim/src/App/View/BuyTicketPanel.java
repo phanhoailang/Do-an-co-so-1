@@ -9,10 +9,12 @@ import App.Dao.TicketDao;
 import App.Helpers.MessageDialog;
 import App.Model.Film;
 import App.Model.Ticket_model;
+import App.Model.User;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,10 +25,39 @@ public class BuyTicketPanel extends javax.swing.JPanel {
     /**
      * Creates new form BuyTicket
      */
+    private User user;
+    private DefaultTableModel dtbModel = new DefaultTableModel();
     public BuyTicketPanel() {
         initComponents();
     }
 
+    public void setUser(User user){
+        this.user = user;
+    }
+    
+    public void setTable(ArrayList<Film> list){
+        dtbModel = (DefaultTableModel) jTable_Film.getModel();
+        FilmDao dao = new FilmDao();
+        TicketDao tk_dao = new TicketDao();
+        Film film = new Film();
+        dtbModel.setRowCount(0);
+        for(Film f : list){
+            if(f.isStatusFilm() == true){
+                int count = 0;
+                try {
+                    count = tk_dao.list2(f.getIdFilm());
+                } catch (Exception ex) {
+                    Logger.getLogger(BuyTicketPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String s = count + "/" + 9;
+                String[] row = new String[]{
+                    f.getNameFilm(),f.getIdFilm(),s
+                };
+                dtbModel.addRow(row);
+            }
+        }
+        dtbModel.fireTableDataChanged();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,12 +105,20 @@ public class BuyTicketPanel extends javax.swing.JPanel {
         jTable_Film.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable_Film.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Avartar 2", "avt2"}
+
             },
             new String [] {
-                "Tên Phim", "Mã Phim"
+                "Tên Phim", "Mã Phim", " Tình Trạng"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable_Film);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -121,6 +160,7 @@ public class BuyTicketPanel extends javax.swing.JPanel {
                 ArrayList<Ticket_model> list = ticketDao.list(film.getIdFilm());
                 TicketDialog.setList(list);
                 TicketDialog.setColor();
+                TicketDialog.setUser(this.user);
             } catch (Exception ex) {
                 Logger.getLogger(BuyTicketPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

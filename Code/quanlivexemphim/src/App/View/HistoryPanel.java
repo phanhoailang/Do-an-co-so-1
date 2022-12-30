@@ -4,6 +4,14 @@
  */
 package App.View;
 
+import App.Dao.FilmDao;
+import App.Model.Film;
+import App.Model.Ticket_model;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author win10
@@ -13,10 +21,50 @@ public class HistoryPanel extends javax.swing.JPanel {
     /**
      * Creates new form HistoryPanel
      */
+    private DefaultTableModel dtbModel = new DefaultTableModel();
     public HistoryPanel() {
         initComponents();
     }
 
+    public void setList(ArrayList<Ticket_model> list){
+        dtbModel = (DefaultTableModel) jTable_history.getModel();
+        FilmDao dao = new FilmDao();
+        Film film = new Film();
+        dtbModel.setRowCount(0);
+        for(Ticket_model t : list){
+            try {
+                film = dao.check(t.getIdFilm());
+            } catch (Exception ex) {
+                Logger.getLogger(HistoryPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String[] row = new String[]{
+                t.getPhoneNumber(),t.getIdTicket(),film.getNameFilm(),t.getPrice()+""
+            };
+            dtbModel.addRow(row);
+        }
+        dtbModel.fireTableDataChanged();
+        
+    }
+//    public void setHistory(){
+//        dtbModel = (DefaultTableModel) jTable_history.getModel();
+//        FilmDao dao = new FilmDao();
+//        Film film = new Film();
+//        dtbModel.setRowCount(0);
+//        for(Ticket_model t : list){
+//            System.out.println(t.getIdTicket());
+//            try {
+//                film = dao.check(t.getIdFilm());
+//            } catch (Exception ex) {
+//                Logger.getLogger(HistoryPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            String[] row = new String[]{
+//                t.getPhoneNumber(),t.getIdTicket(),film.getNameFilm(),t.getPrice()+""
+//            };
+//            dtbModel.addRow(row);
+//        }
+//        dtbModel.fireTableDataChanged();
+//        
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,14 +77,14 @@ public class HistoryPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable_history = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Lịch sử");
 
         jScrollPane2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_history.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -44,10 +92,18 @@ public class HistoryPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Số Điện Thoại", "ID vé", "Tên Phim", "Giá"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable_history);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -78,6 +134,6 @@ public class HistoryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable_history;
     // End of variables declaration//GEN-END:variables
 }

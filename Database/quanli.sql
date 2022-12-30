@@ -8,7 +8,7 @@ CREATE TABLE KHACHHANG(
    PassWord VARCHAR(16) NOT NULL,
    DateOFBirth DATE NOT NULL,
    Gender CHAR(3) NOT NULL,
-	CONSTRAINT PK_SDT PRIMARY KEY (PhoneNumber));
+   CONSTRAINT PK_SDT PRIMARY KEY (PhoneNumber));
 
 CREATE TABLE FILM(
    NameFilm VARCHAR(50) NOT NULL,
@@ -30,10 +30,13 @@ insert into qlivexemphim.khachhang values
  ('0392779517','Nguyễn Minh Hoàng','123456789','2004-09-19','nam');
  
 insert into qlivexemphim.film values
- ('Avartar 2','avt2',true);
+ ('MÈO ĐI HIA', 'mdh',true),
+ ('THANH SÓI', 'ts',true),
+ ('AVATAR 2','avt2',true);
  
 insert into qlivexemphim.ticket values
- ('avt2_A2',2,65000.00,'avt2',null),
+ ('avt2_A1',1,65000.00,'avt2',null),
+ ('avt2_A2',1,65000.00,'avt2',null),
  ('avt2_A3',1,65000.00,'avt2',null),
  ('avt2_B1',1,65000.00,'avt2',null),
  ('avt2_B2',1,65000.00,'avt2',null),
@@ -42,6 +45,25 @@ insert into qlivexemphim.ticket values
  ('avt2_C2',1,65000.00,'avt2',null),
  ('avt2_C3',1,65000.00,'avt2',null);
  
- update qlivexemphim.ticket
-  set StatusTicket = 3
-  where IdTicket = 'avt2_C2';
+insert into qlivexemphim.ticket values
+ ('mdh_A1',1,65000.00,'mdh',null),
+ ('mdh_A2',1,65000.00,'mdh',null),
+ ('mdh_A3',1,65000.00,'mdh',null),
+ ('mdh_B1',1,65000.00,'mdh',null),
+ ('mdh_B2',1,65000.00,'mdh',null),
+ ('mdh_B3',1,65000.00,'mdh',null),
+ ('mdh_C1',1,65000.00,'mdh',null),
+ ('mdh_C2',1,65000.00,'mdh',null),
+ ('mdh_C3',1,65000.00,'mdh',null);
+
+insert into qlivexemphim.ticket values
+ ('ts_A1',1,65000.00,'ts',null),
+ ('ts_A2',1,65000.00,'ts',null),
+ ('ts_A3',1,65000.00,'ts',null),
+ ('ts_B1',1,65000.00,'ts',null),
+ ('ts_B2',1,65000.00,'ts',null),
+ ('ts_B3',1,65000.00,'ts',null),
+ ('ts_C1',1,65000.00,'ts',null),
+ ('ts_C2',1,65000.00,'ts',null),
+ ('ts_C3',1,65000.00,'ts',null);
+ 

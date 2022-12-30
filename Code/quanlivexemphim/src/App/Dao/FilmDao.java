@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 /**
  *
  * @author win10
@@ -32,5 +33,37 @@ public class FilmDao {
             }
         }
         return null;
+    }
+    public Film check(String idFilm) throws Exception{
+        String sql = " SELECT * FROM FILM"
+                + " WHERE IdFilm=?";
+        try(Connection conn = DatabaseConnection.openConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);){
+            pstmt.setString(1, idFilm);
+            try ( ResultSet res = pstmt.executeQuery();) {
+                {
+                    if (res.next()) {
+                        Film film = new Film(res.getString(1),res.getString(2),res.getBoolean(3));
+                        return film;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Film> select() throws Exception{
+        String sql = " SELECT * FROM FILM";
+        ArrayList<Film> list = new ArrayList<>();
+        try(Connection conn = DatabaseConnection.openConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);){
+            try ( ResultSet res = pstmt.executeQuery();) {
+                {
+                    while (res.next()) {
+                        Film film = new Film(res.getString(1),res.getString(2),res.getBoolean(3));
+                        list.add(film);
+                    }
+                }
+            }
+        }
+        return list;
     }
 }

@@ -4,14 +4,19 @@
  */
 package App.View;
 
+import App.Dao.TicketDao;
 import App.Helpers.MessageDialog;
 import App.Model.Ticket_model;
+import App.Model.User;
 import java.awt.Button;
 import java.awt.Color;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,12 +28,17 @@ public class Ticket extends javax.swing.JDialog {
      * Creates new form Ticket
      */
     private double s = 0;
-    ArrayList<Ticket_model> list = new ArrayList<>();
+    private User user;
+    private ArrayList<Ticket_model> list = new ArrayList<>();
 
     public Ticket(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setList(ArrayList<Ticket_model> list) {
@@ -129,8 +139,8 @@ public class Ticket extends javax.swing.JDialog {
         jButton_C3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButton_payMent = new javax.swing.JButton();
+        jButton_Cancel = new javax.swing.JButton();
         jLabel_Sum = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -284,17 +294,17 @@ public class Ticket extends javax.swing.JDialog {
 
         jLabel2.setText("Tổng tiền:");
 
-        jButton10.setText("Thanh toán");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButton_payMent.setText("Thanh toán");
+        jButton_payMent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButton_payMentActionPerformed(evt);
             }
         });
 
-        jButton11.setText("Hủy");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Cancel.setText("Hủy");
+        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButton_CancelActionPerformed(evt);
             }
         });
 
@@ -310,9 +320,9 @@ public class Ticket extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton10)
+                        .addComponent(jButton_payMent)
                         .addGap(42, 42, 42)
-                        .addComponent(jButton11))
+                        .addComponent(jButton_Cancel))
                     .addComponent(jLabel_Sum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -325,8 +335,8 @@ public class Ticket extends javax.swing.JDialog {
                     .addComponent(jLabel_Sum, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10)
-                    .addComponent(jButton11))
+                    .addComponent(jButton_payMent)
+                    .addComponent(jButton_Cancel))
                 .addContainerGap())
         );
 
@@ -429,13 +439,54 @@ public class Ticket extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void jButton_payMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_payMentActionPerformed
+        if (s == 0) {
+            MessageDialog.showMessageDialog(jPanel1, "Cần chọn vé", "Thông báo");
+        } else {
+            if (MessageDialog.showConfirmialog(jPanel1, "Hỏi", "Bạn có muốn đặt vé") == JOptionPane.NO_OPTION) {
+                return;
+            } else {
+                TicketDao dao = new TicketDao();
+                for (Ticket_model t : list) {
+                    if (t.isStatusTicket() == 2) {
+                        try {
+                            dao.UpdateStatus(t.getIdTicket());
+                        } catch (Exception ex) {
+                            Logger.getLogger(Ticket.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        try {
+                            dao.UpdatePhoneNumber(t.getIdTicket(), user.getPhoneNumber());
+                        } catch (Exception ex) {
+                            Logger.getLogger(Ticket.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        t.setStatusTicket(3);
+                    }
+                }
+                this.dispose();
+                this.s = 0;
+                this.jLabel_Sum.setText(s + "đ");
+                this.setColor();
+                this.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jButton_payMentActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
+        if (MessageDialog.showConfirmialog(jPanel1, "Hỏi", "Muốn hủy các vé đã đặt") == JOptionPane.NO_OPTION)
+            return;
+        else {
+            for (Ticket_model t : list) {
+                if (t.isStatusTicket() == 2) {
+                    t.setStatusTicket(1);
+                }
+            }
+            this.dispose();
+            this.s = 0;
+            this.jLabel_Sum.setText(s + "đ");
+            this.setColor();
+            this.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton_CancelActionPerformed
 
     private void jButton_C1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C1ActionPerformed
         if (jButton_C1.getBackground() == Color.WHITE) {
@@ -463,7 +514,7 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(0).getPrice();
             this.list.get(0).setStatusTicket(1);
         } else if (jButton_A1.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
         this.jLabel_Sum.setText(s + "đ");
@@ -479,7 +530,7 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(1).getPrice();
             this.list.get(1).setStatusTicket(1);
         } else if (jButton_A2.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
         this.jLabel_Sum.setText(s + "đ");
@@ -495,7 +546,7 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(2).getPrice();
             this.list.get(2).setStatusTicket(1);
         } else if (jButton_A3.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
         this.jLabel_Sum.setText(s + "đ");
@@ -508,10 +559,10 @@ public class Ticket extends javax.swing.JDialog {
             this.list.get(4).setStatusTicket(2);
         } else if (jButton_B2.getBackground() == Color.YELLOW) {
             setWhite(jButton_B2);
-             this.s -= list.get(4).getPrice();
+            this.s -= list.get(4).getPrice();
             this.list.get(4).setStatusTicket(1);
         } else if (jButton_B2.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
         this.jLabel_Sum.setText(s + "đ");
@@ -527,7 +578,7 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(3).getPrice();
             this.list.get(3).setStatusTicket(1);
         } else if (jButton_A1.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
         this.jLabel_Sum.setText(s + "đ");
@@ -543,7 +594,7 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(5).getPrice();
             this.list.get(5).setStatusTicket(1);
         } else if (jButton_B3.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
         this.jLabel_Sum.setText(s + "đ");
@@ -559,10 +610,10 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(7).getPrice();
             this.list.get(7).setStatusTicket(1);
         } else if (jButton_C2.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s+"đ");
+        this.jLabel_Sum.setText(s + "đ");
     }//GEN-LAST:event_jButton_C2ActionPerformed
 
     private void jButton_C3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C3ActionPerformed
@@ -575,10 +626,10 @@ public class Ticket extends javax.swing.JDialog {
             this.s -= list.get(8).getPrice();
             this.list.get(8).setStatusTicket(1);
         } else if (jButton_C3.getBackground() == Color.RED) {
-            MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
         NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "");
+        this.jLabel_Sum.setText(s + "đ");
     }//GEN-LAST:event_jButton_C3ActionPerformed
 
     /**
@@ -624,8 +675,6 @@ public class Ticket extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton_A1;
     private javax.swing.JButton jButton_A2;
     private javax.swing.JButton jButton_A3;
@@ -635,6 +684,8 @@ public class Ticket extends javax.swing.JDialog {
     private javax.swing.JButton jButton_C1;
     private javax.swing.JButton jButton_C2;
     private javax.swing.JButton jButton_C3;
+    private javax.swing.JButton jButton_Cancel;
+    private javax.swing.JButton jButton_payMent;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
