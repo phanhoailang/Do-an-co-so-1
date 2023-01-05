@@ -30,6 +30,8 @@ public class Ticket extends javax.swing.JDialog {
     private double s = 0;
     private User user;
     private ArrayList<Ticket_model> list = new ArrayList<>();
+    Locale lc = new Locale("vn", "VN");
+    NumberFormat ss = NumberFormat.getCurrencyInstance(lc);
 
     public Ticket(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -441,7 +443,7 @@ public class Ticket extends javax.swing.JDialog {
 
     private void jButton_payMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_payMentActionPerformed
         if (s == 0) {
-            MessageDialog.showMessageDialog(jPanel1, "Cần chọn vé", "Thông báo");
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Cần chọn vé");
         } else {
             if (MessageDialog.showConfirmialog(jPanel1, "Hỏi", "Bạn có muốn đặt vé") == JOptionPane.NO_OPTION) {
                 return;
@@ -472,19 +474,29 @@ public class Ticket extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_payMentActionPerformed
 
     private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
-        if (MessageDialog.showConfirmialog(jPanel1, "Hỏi", "Muốn hủy các vé đã đặt") == JOptionPane.NO_OPTION)
-            return;
-        else {
-            for (Ticket_model t : list) {
-                if (t.isStatusTicket() == 2) {
-                    t.setStatusTicket(1);
-                }
+        int count = 0;
+        for (Ticket_model t : list) {
+            if (t.isStatusTicket() == 2) {
+                count++;
             }
-            this.dispose();
-            this.s = 0;
-            this.jLabel_Sum.setText(s + "đ");
-            this.setColor();
-            this.setVisible(true);
+        }
+        if (count == 0)
+            MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Bạn chưa đặt vé");
+        else {
+            if (MessageDialog.showConfirmialog(jPanel1, "Hỏi", "Muốn hủy các vé đã đặt") == JOptionPane.NO_OPTION) {
+                return;
+            } else {
+                for (Ticket_model t : list) {
+                    if (t.isStatusTicket() == 2) {
+                        t.setStatusTicket(1);
+                    }
+                }
+                this.dispose();
+                this.s = 0;
+                this.jLabel_Sum.setText(s + "đ");
+                this.setColor();
+                this.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jButton_CancelActionPerformed
 
@@ -500,8 +512,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_C1.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Ghế đã có người chọn", "Thông báo");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_C1ActionPerformed
 
     private void jButton_A1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_A1ActionPerformed
@@ -516,8 +527,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_A1.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_A1ActionPerformed
 
     private void jButton_A2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_A2ActionPerformed
@@ -532,8 +542,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_A2.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_A2ActionPerformed
 
     private void jButton_A3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_A3ActionPerformed
@@ -548,8 +557,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_A3.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_A3ActionPerformed
 
     private void jButton_B2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_B2ActionPerformed
@@ -564,8 +572,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_B2.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_B2ActionPerformed
 
     private void jButton_B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_B1ActionPerformed
@@ -580,8 +587,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_A1.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_B1ActionPerformed
 
     private void jButton_B3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_B3ActionPerformed
@@ -596,8 +602,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_B3.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_B3ActionPerformed
 
     private void jButton_C2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C2ActionPerformed
@@ -612,8 +617,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_C2.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_C2ActionPerformed
 
     private void jButton_C3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_C3ActionPerformed
@@ -628,8 +632,7 @@ public class Ticket extends javax.swing.JDialog {
         } else if (jButton_C3.getBackground() == Color.RED) {
             MessageDialog.showMessageDialog(jPanel1, "Thông báo", "Ghế đã có người chọn");
         }
-        NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(s);
-        this.jLabel_Sum.setText(s + "đ");
+        this.jLabel_Sum.setText((String) ss.format(this.s));
     }//GEN-LAST:event_jButton_C3ActionPerformed
 
     /**

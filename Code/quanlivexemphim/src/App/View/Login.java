@@ -9,25 +9,30 @@ import App.Helpers.Datavalidator;
 import App.Helpers.MessageDialog;
 import App.Model.User;
 import App.View.Signup;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author win10
  */
 public class Login extends javax.swing.JDialog {
+
     /**
      * Creates new form Login
      */
     public User user;
+
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(parent);
-        
+        jTextField_User.requestFocus();
+        jButton_Login.setMnemonic(KeyEvent.VK_ENTER);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +56,11 @@ public class Login extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formHandleKeyPress(evt);
+            }
+        });
 
         jPanel_Login.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
@@ -73,6 +83,11 @@ public class Login extends javax.swing.JDialog {
         jButton_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LoginActionPerformed(evt);
+            }
+        });
+        jButton_Login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton_LoginKeyPressed(evt);
             }
         });
 
@@ -165,29 +180,28 @@ public class Login extends javax.swing.JDialog {
 
     private void jButton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoginActionPerformed
         StringBuffer sb = new StringBuffer();
-        Datavalidator.validateEmpty(jTextField_User,sb,"Tên đăng nhập không được để trống");
-        Datavalidator.validateEmpty(jPasswordField_Password,sb,"Mật khẩu không được để trống");
-        if(sb.length() > 0){
-            MessageDialog.showErrorDialog(this, sb.toString(), "Lỗi");
-            return ;
+        Datavalidator.validateEmpty(jTextField_User, sb, "Tên đăng nhập không được để trống");
+        Datavalidator.validateEmpty(jPasswordField_Password, sb, "Mật khẩu không được để trống");
+        if (sb.length() > 0) {
+            MessageDialog.showErrorDialog(this, "Lỗi", sb.toString());
+            return;
         }
         UserDao dao = new UserDao();
-         
-        try{
+
+        try {
             this.user = dao.checkLogin(jTextField_User.getText(), new String(jPasswordField_Password.getPassword()));
-            if(this.user == null){
-                MessageDialog.showErrorDialog(this, "Tên đăng nhập hoặc mật khẩu sai", "Lỗi");
-            }
-            else {
+            if (this.user == null) {
+                MessageDialog.showErrorDialog(this, "Lỗi", "Tên đăng nhập hoặc mật khẩu sai");
+            } else {
                 this.dispose();
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             MessageDialog.showErrorDialog(this, e.getMessage(), "Lỗi");
         }
-       
+
     }//GEN-LAST:event_jButton_LoginActionPerformed
-    public User getUser(){
+    public User getUser() {
         return this.user;
     }
     private void jButton_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExitActionPerformed
@@ -195,11 +209,22 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton_ExitActionPerformed
 
     private void jButton_SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SignupActionPerformed
-          Signup signupdialog = new Signup(null, true);
-          this.dispose();
-          signupdialog.setVisible(true);
-          this.setVisible(true);
+        Signup signupdialog = new Signup(null, true);
+        this.dispose();
+        signupdialog.setVisible(true);
+        this.setVisible(true);
     }//GEN-LAST:event_jButton_SignupActionPerformed
+
+    private void jButton_LoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_LoginKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("hello");
+        }
+    }//GEN-LAST:event_jButton_LoginKeyPressed
+
+    private void formHandleKeyPress(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formHandleKeyPress
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formHandleKeyPress
 
     /**
      * @param args the command line arguments
@@ -238,6 +263,7 @@ public class Login extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
+
                 dialog.setVisible(true);
             }
         });

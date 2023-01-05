@@ -66,4 +66,26 @@ public class FilmDao {
         }
         return list;
     }
+    public void insert (String idFilm, String nameFilm, String statusFilm) throws Exception{
+        String sql = "INSERT into FILM values"
+                + " (?,?,?)";
+        try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nameFilm);
+            pstmt.setString(2, idFilm);
+            if(statusFilm.equals("Chiếu")) pstmt.setBoolean(3, true);
+            else pstmt.setBoolean(3, false);
+            pstmt.execute();
+        }
+    }
+    public void status (String idFilm, String statusFilm) throws Exception{
+        String sql = "UPDATE FILM "
+                + " SET StatusFilm = ?"
+                + " WHERE IdFilm = ?";
+        try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(2, idFilm);
+            if(statusFilm.equals("Chiếu")) pstmt.setBoolean(1, true);
+            else pstmt.setBoolean(1, false);
+            pstmt.execute();
+        }
+    }
 }

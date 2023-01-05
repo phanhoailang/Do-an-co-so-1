@@ -94,7 +94,7 @@ public class Signup extends javax.swing.JDialog {
             }
         });
 
-        jLabel_PhoneNumber.setText("Số Điện Thoại");
+        jLabel_PhoneNumber.setText("Tài Khoản");
 
         jTextField_FullName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +202,15 @@ public class Signup extends javax.swing.JDialog {
 
     private void jButton_SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SignUpActionPerformed
         StringBuffer sb = new StringBuffer();
+        Datavalidator.validateEmpty(jTextField_FullName, sb, "Họ và tên không được để trống");
+        Datavalidator.validateEmpty(jTextField_PhoneNumber, sb, "Số điện thoại không được để trống");
+        Datavalidator.validateEmpty(jTextField_Password, sb, "Mật khẩu không được để trống");
+        Datavalidator.validateEmpty(jDateChooser_DateOfBirth, sb, "Ngày sinh không được để trống");
+        Datavalidator.validateEmpty(buttonGroup1, sb, "Giới tính không được để trống");
+        if(sb.length() > 0){
+            MessageDialog.showErrorDialog(this, "Thông báo", sb.toString());
+            return ;
+        }
         UserDao dao = new UserDao();
          String genDer = "";
          Enumeration<AbstractButton> btn = buttonGroup1.getElements();
@@ -216,7 +225,7 @@ public class Signup extends javax.swing.JDialog {
                  MessageDialog.showErrorDialog(this, "Tài khoản đã được đăng ký", "Đăng ký lại");
              }
              else{
-                 dao.Singup(jTextField_PhoneNumber.getText(), jTextField_FullName.getText(), jTextField_Password.getText(), jDateChooser_DateOfBirth.getDate() + "", genDer);
+                 dao.Singup(jTextField_PhoneNumber.getText(), jTextField_FullName.getText(), jTextField_Password.getText(), jDateChooser_DateOfBirth.getDate() + "", genDer,"Khách hàng");
                  MessageDialog.showMessageDialog(this, "Đăng ký thành công", "Hoàn thành");
              }
          } catch(Exception e){

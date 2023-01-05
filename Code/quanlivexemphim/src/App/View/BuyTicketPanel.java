@@ -150,6 +150,7 @@ public class BuyTicketPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_BuyticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BuyticketActionPerformed
+
         Ticket TicketDialog = new Ticket(null, true);
         FilmDao filmDao = new FilmDao();
         TicketDao ticketDao = new TicketDao();
@@ -170,6 +171,11 @@ public class BuyTicketPanel extends javax.swing.JPanel {
             return ;
         }
         TicketDialog.setVisible(true);
+        try {
+            setTable(filmDao.select());
+        } catch (Exception ex) {
+            Logger.getLogger(BuyTicketPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_BuyticketActionPerformed
 
 

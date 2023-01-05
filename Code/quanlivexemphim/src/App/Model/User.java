@@ -6,17 +6,19 @@ package App.Model;
 
 
 public class User {
-    private String fullName,passWord,phoneNumber,dateOfBirth,genDer;
-
+    private String fullName,passWord,phoneNumber,dateOfBirth,genDer,position;
     public User() {
     }
 
-    public User(String fullName, String passWord, String phoneNumber, String dateOfBirth, String genDer) {
+    public User(String fullName, String passWord, String phoneNumber, String dateOfBirth, String genDer,String position) {
         this.fullName = fullName;
         this.passWord = passWord;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.genDer = genDer;
+        this.position = position;
+//        this.position = postition;
+//        this.image = image;
     }
 
     public String getFullName() {
@@ -58,5 +60,21 @@ public class User {
     public void setGenDer(String genDer) {
         this.genDer = genDer;
     }
-    
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+//
+//    public byte[] getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(byte[] image) {
+//        this.image = image;
+//    }
+//    
 }

@@ -92,7 +92,7 @@ public class HistoryPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Số Điện Thoại", "ID vé", "Tên Phim", "Giá"
+                "Tài Khoản", "ID vé", "Tên Phim", "Giá"
             }
         ) {
             boolean[] canEdit = new boolean [] {

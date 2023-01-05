@@ -62,12 +62,32 @@ public class TicketDao {
             try ( ResultSet res = pstmt.executeQuery();) {
                 {
                     while (res.next()) {
-                        if(res.getInt(2) == 3) count++;
+                        if (res.getInt(2) == 3) {
+                            count++;
+                        }
                     }
                 }
             }
         }
         return count;
+    }
+
+    public double price(String idFilm) throws Exception {
+        String sql = "SELECT * FROM TICKET"
+                + " WHERE IdFilm = ?";
+        Ticket_model t = new Ticket_model();
+        try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, idFilm);
+            try ( ResultSet res = pstmt.executeQuery();) {
+                {
+                    while(res.next()){
+                        t = new Ticket_model(res.getString(1), res.getString(4), res.getString(5), res.getDouble(3), res.getInt(2));
+                        break;
+                    }
+                    return t.getPrice();
+                }
+            }
+        }
     }
 
     public void UpdateStatus(String idTicket) throws Exception {
@@ -97,6 +117,29 @@ public class TicketDao {
                 + " WHERE PhoneNumber = ?";
         try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, phoneNumber);
+            pstmt.execute();
+        }
+    }
+
+    public void insert(String idTicket, String idFilm, double price) throws Exception {
+        String sql = " INSERT INTO TICKET values"
+                + " (?,?,?,?,?)";
+        try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, idTicket);
+            pstmt.setInt(2, 1);
+            pstmt.setDouble(3, price);
+            pstmt.setString(4, idFilm);
+            pstmt.setString(5, null);
+            pstmt.execute();
+        }
+    }
+    public void update(String idFilm, double price) throws Exception{
+        String sql = "UPDATE TICKET "
+                + " SET Price = ?"
+                + " WHERE IdFilm = ?";
+        try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setDouble(1, price);
+            pstmt.setString(2, idFilm);
             pstmt.execute();
         }
     }

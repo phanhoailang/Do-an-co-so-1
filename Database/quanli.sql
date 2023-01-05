@@ -60,7 +60,7 @@ insert into qlivexemphim.ticket values
  ('ts_A1',1,65000.00,'ts',null),
  ('ts_A2',1,65000.00,'ts',null),
  ('ts_A3',1,65000.00,'ts',null),
- ('ts_B1',1,65000.00,'ts',null),
+ ('ts_B1',1,65000.00,'ts',nullticketfilm),
  ('ts_B2',1,65000.00,'ts',null),
  ('ts_B3',1,65000.00,'ts',null),
  ('ts_C1',1,65000.00,'ts',null),

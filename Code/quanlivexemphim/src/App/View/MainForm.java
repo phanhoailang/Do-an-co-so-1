@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
+/** 
  *
  * @author win10
  */
@@ -25,6 +25,7 @@ public class MainForm extends javax.swing.JFrame {
     private UserPanel userPanel;
     private BuyTicketPanel buyTicketPanel;
     private HistoryPanel historyPanel;
+    private ShowTimesPanel showTimesPanel;
     public User user;
 
     /**
@@ -38,8 +39,28 @@ public class MainForm extends javax.swing.JFrame {
         Login loginDialog = new Login(this, true);
         loginDialog.setVisible(true);
         this.user = loginDialog.getUser();
+        processLoginSuccessful();
     }
-
+    
+    private void processLoginSuccessful(){
+        if(this.user.getPosition().equals("Quản lí")){
+            jButton_User.setEnabled(true);
+            jButton_manager.setEnabled(true);
+            jButton_Logout.setEnabled(true);
+            jButton_History.setEnabled(false);
+            jMenuItem_History.setEnabled(false);
+            jButton_BuyTicket.setEnabled(false);
+            jMenuItem_BuyTicket.setEnabled(false);
+        }
+        else if(this.user.getPosition().equals("Khách hàng")){
+            jButton_User.setEnabled(true);
+            jButton_manager.setEnabled(false);
+            jMenuItem_manager.setEnabled(false);
+            jButton_Logout.setEnabled(true);
+            jButton_History.setEnabled(true);
+            jButton_BuyTicket.setEnabled(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +77,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton_BuyTicket = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jButton_History = new javax.swing.JButton();
+        jButton_manager = new javax.swing.JButton();
         jTabbedPane_MainBoard = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -66,6 +88,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem_Exit = new javax.swing.JMenuItem();
         jMenu_Historty = new javax.swing.JMenu();
         jMenuItem_BuyTicket = new javax.swing.JMenuItem();
+        jMenuItem_manager = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +148,19 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton_History);
+
+        jButton_manager.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton_manager.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Business-Manager-icon_24.png"))); // NOI18N
+        jButton_manager.setText("Quản Lí");
+        jButton_manager.setFocusable(false);
+        jButton_manager.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton_manager.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton_manager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_managerActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton_manager);
 
         jMenu1.setText("Cá Nhân");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +223,14 @@ public class MainForm extends javax.swing.JFrame {
         });
         jMenu_Historty.add(jMenuItem_BuyTicket);
 
+        jMenuItem_manager.setText("Quản lí");
+        jMenuItem_manager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_managerActionPerformed(evt);
+            }
+        });
+        jMenu_Historty.add(jMenuItem_manager);
+
         jMenuBar1.add(jMenu_Historty);
 
         setJMenuBar(jMenuBar1);
@@ -198,12 +242,9 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane_MainBoard)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-                        .addGap(21, 21, 21))))
+                    .addComponent(jTabbedPane_MainBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,18 +261,29 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem_LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_LogoutActionPerformed
         this.jTabbedPane_MainBoard.removeAll();
         Login login = new Login(this, true);
-        this.userPanel = null;
-        this.buyTicketPanel = null;
-        this.historyPanel = null;
         login.setVisible(true);
         this.user = login.getUser();
+        if(user == null) {
+            jButton_User.setEnabled(false);
+            jMenuItem_User.setEnabled(false);
+            jButton_manager.setEnabled(false);
+            jMenuItem_manager.setEnabled(false);
+            jButton_Logout.setEnabled(true);
+            jButton_History.setEnabled(false);
+            jMenuItem_History.setEnabled(false);
+            jButton_BuyTicket.setEnabled(false);
+            jMenuItem_BuyTicket.setEnabled(false);
+        }
+        else processLoginSuccessful();
     }//GEN-LAST:event_jMenuItem_LogoutActionPerformed
 
     private void jMenuItem_BuyTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_BuyTicketActionPerformed
         this.jTabbedPane_MainBoard.remove(userPanel);
         this.jTabbedPane_MainBoard.remove(historyPanel);
+        this.jTabbedPane_MainBoard.remove(showTimesPanel);
         this.userPanel = null;
         this.historyPanel = null;
+        this.showTimesPanel = null;
         FilmDao dao = new FilmDao();
         if (buyTicketPanel == null) {
             buyTicketPanel = new BuyTicketPanel();
@@ -248,6 +300,7 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_BuyTicketActionPerformed
 
     private void jMenuItem_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_ExitActionPerformed
+        System.out.println("Tớ là hoàng cute nè hihi -_-");
         System.exit(0);
     }//GEN-LAST:event_jMenuItem_ExitActionPerformed
 
@@ -258,8 +311,10 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_UserActionPerformed
         this.jTabbedPane_MainBoard.remove(buyTicketPanel);
         this.jTabbedPane_MainBoard.remove(historyPanel);
+        this.jTabbedPane_MainBoard.remove(showTimesPanel);
         this.buyTicketPanel = null;
         this.historyPanel = null;
+        this.showTimesPanel = null;
         if (userPanel == null) {
             userPanel = new UserPanel();
             userPanel.setText(this.user);
@@ -280,8 +335,10 @@ public class MainForm extends javax.swing.JFrame {
     private void jMenuItem_HistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_HistoryActionPerformed
         this.jTabbedPane_MainBoard.remove(buyTicketPanel);
         this.jTabbedPane_MainBoard.remove(userPanel);
+        this.jTabbedPane_MainBoard.remove(showTimesPanel);
         this.buyTicketPanel = null;
         this.userPanel = null;
+        this.showTimesPanel = null;
         TicketDao dao = new TicketDao();
         if (historyPanel == null) {
             historyPanel = new HistoryPanel();
@@ -309,6 +366,31 @@ public class MainForm extends javax.swing.JFrame {
     private void jButton_BuyTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BuyTicketActionPerformed
         jMenuItem_BuyTicketActionPerformed(evt);
     }//GEN-LAST:event_jButton_BuyTicketActionPerformed
+
+    private void jButton_managerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_managerActionPerformed
+        this.jTabbedPane_MainBoard.remove(buyTicketPanel);
+        this.jTabbedPane_MainBoard.remove(userPanel);
+        this.jTabbedPane_MainBoard.remove(historyPanel);
+        this.historyPanel = null;
+        this.userPanel = null;
+        this.buyTicketPanel = null;
+        FilmDao dao = new FilmDao();
+        if (showTimesPanel == null) {
+            showTimesPanel = new ShowTimesPanel();
+            try {
+                showTimesPanel.setTable(dao.select());
+            } catch (Exception ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ImageIcon icon = new ImageIcon(getClass().getResource("/Image/Manager-icon_16.png"));
+            jTabbedPane_MainBoard.addTab("Tài Khoản", icon, showTimesPanel, "Tài Khoản");
+        }
+        jTabbedPane_MainBoard.setSelectedComponent(showTimesPanel);
+    }//GEN-LAST:event_jButton_managerActionPerformed
+
+    private void jMenuItem_managerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_managerActionPerformed
+         jButton_managerActionPerformed(evt);
+    }//GEN-LAST:event_jMenuItem_managerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,6 +432,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton_History;
     private javax.swing.JButton jButton_Logout;
     private javax.swing.JButton jButton_User;
+    private javax.swing.JButton jButton_manager;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem_BuyTicket;
@@ -357,6 +440,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem_History;
     private javax.swing.JMenuItem jMenuItem_Logout;
     private javax.swing.JMenuItem jMenuItem_User;
+    private javax.swing.JMenuItem jMenuItem_manager;
     private javax.swing.JMenu jMenu_Historty;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator3;

@@ -27,7 +27,7 @@ public class UserDao {
             try ( ResultSet res = pstmt.executeQuery();) {
                 {
                     if (res.next()) {
-                        User user = new User(res.getString(2), res.getString(3), res.getString(1), res.getString(4), res.getString(5));
+                        User user = new User(res.getString(2), res.getString(3), res.getString(1), res.getString(4), res.getString(5),res.getString(6));
                         return user;
                     }
                 }
@@ -44,7 +44,7 @@ public class UserDao {
             try ( ResultSet res = pstmt.executeQuery();) {
                 {
                     if (res.next()) {
-                        User user = new User(res.getString(2), res.getString(3), res.getString(1), res.getString(4), res.getString(5));
+                        User user = new User(res.getString(2), res.getString(3), res.getString(1), res.getString(4), res.getString(5),res.getString(6));
                         return user;
                     }
                 }
@@ -53,17 +53,18 @@ public class UserDao {
         return null;
     }
 
-    public void Singup(String phoneNumber, String fullName, String passWord, String dateOfBirth, String genDer) throws Exception {
+    public void Singup(String phoneNumber, String fullName, String passWord, String dateOfBirth, String genDer, String position) throws Exception {
         ToStringDate d = new ToStringDate();
         //String s = "('" + phoneNumber + "','" + fullName + "','" + passWord + "','" + d.change(dateOfBirth) + "','" + genDer + "');";
         String sql = "INSERT INTO KHACHHANG VALUES "
-                + "(?,?,?,?,?)";
+                + "(?,?,?,?,?,?)";
         try ( Connection conn = DatabaseConnection.openConnection();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, phoneNumber);
             pstmt.setString(2, fullName);
             pstmt.setString(3, passWord);
             pstmt.setString(4, d.change(dateOfBirth));
             pstmt.setString(5, genDer);
+            pstmt.setString(6, position);
             pstmt.execute();
             
         }
